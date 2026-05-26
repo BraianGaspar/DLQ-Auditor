@@ -13,13 +13,13 @@ public class DlxMessageListener {
 
     private final AuditService auditService;
 
-    @SqsListener("${sqs.dlq.name}")
+    @SqsListener("${SQS_DLQ_NAME}")
     public void receiveMessage(String message) {
         try {
             log.info("Mensagem recebida da DLQ");
             log.debug("Payload: {}", message);
             
-            auditService.processFailedMessage(message, "${sqs.dlq.name}");
+            auditService.processFailedMessage(message, "${SQS_DLQ_NAME}");
             
             log.info("Mensagem processada com sucesso");
             
